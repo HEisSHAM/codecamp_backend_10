@@ -1,0 +1,130 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type FoodCategory {
+  id: String!
+  category: String!
+}
+
+type Ingredient {
+  id: String!
+  name: String!
+  food: [Food!]!
+}
+
+type Food {
+  id: String!
+  name: String!
+  price: Int!
+  description: String!
+  foodCategory: FoodCategory!
+  ingredient: [Ingredient!]!
+}
+
+type Customer {
+  id: String!
+  name: String!
+  phone: String!
+  point: Int!
+  nickname: String!
+  pwd: String!
+  email: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  removed_at: DateTime!
+  balance: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type PlaceCategory {
+  id: String!
+  category: String!
+}
+
+type Review {
+  id: String!
+  rating: Int!
+  ordered_menu: String!
+  review_date: DateTime!
+  review_revise_date: DateTime!
+  review_remove_date: DateTime!
+  contents: String!
+  customer: Customer!
+  food: Food!
+}
+
+type Place {
+  id: String!
+  name: String!
+  open_time: String!
+  close_time: String!
+  minimum_order: Int!
+  business_num: String!
+  created_at: DateTime!
+  revised_at: DateTime!
+  removed_at: DateTime!
+  placeCategory: PlaceCategory!
+}
+
+type ProductSaleslocation {
+  id: String!
+  address: String!
+  addressDetail: String!
+  lat: Float!
+  lng: Float!
+  meetingTime: DateTime!
+}
+
+type ProductCategory {
+  id: String!
+  name: String!
+}
+
+type User {
+  id: String!
+  email: String!
+  password: String!
+}
+
+type ProductTag {
+  id: String!
+  name: String!
+  products: [Product!]!
+}
+
+type Product {
+  id: String!
+  name: String!
+  description: String!
+  price: Int!
+  isSoldout: Boolean!
+  productCategory: ProductCategory!
+  user: User!
+  productSaleslocation: ProductSaleslocation!
+  productTags: [ProductTag!]!
+}
+
+type Query {
+  fetchProducts: [Food!]!
+  fetchProduct(foodId: String!): Food!
+}
+
+type Mutation {
+  createFood(createFoodInput: CreateFoodInput!): Food!
+  deleteFood(foodId: String!): Boolean!
+  restoreFood(foodId: String!): Boolean!
+  createFoodCategory(category: String!): FoodCategory!
+}
+
+input CreateFoodInput {
+  name: String!
+  price: Int!
+  description: String!
+  category: String!
+  ingredient: [String!]!
+}

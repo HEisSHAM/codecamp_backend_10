@@ -1,0 +1,89 @@
+show databases
+;
+
+use myproject10
+;
+
+show tables
+;
+
+desc product
+;
+
+select * 
+  from product
+;
+
+insert into product(id, name, description, price, isSoldout)
+			values(uuid(), '마우스', '정말 좋은 마우스입니다!!', 15000, false) #MYSQL에서는 "", ''  둘 다 사용가능, 다른 SQL DB는 ''만 사용가능
+;
+insert into product(id, name, description, price, isSoldout)
+			values(uuid(), '노트북', '최신맥북', 20000, false)
+;
+insert into product(id, name, description, price, isSoldout)
+			values(uuid(), '셔츠', '깔끔한 셔츠입니다.', 30000, false)
+;
+delete from product 
+where name = '셔츠'
+;
+
+update product
+   set price = 18000
+   where name = '마우스'
+;
+
+# 조인
+select *
+from product_saleslocation
+;
+
+insert into product_saleslocation (id, address, addressDetail, lat, lng, meetingTime)
+                           values (uuid(), '구로구', '구로디지털단지', 37.281723, 127.123151, '2022-12-31')
+;
+
+
+UPDATE product 
+   set productSaleslocationId = '6319e786-6b06-11ed-aefe-c0492e0aa728'
+ where name = '마우스'
+;
+
+select * FROM product
+;
+
+SELECT p.id, name, price, address, addressDetail as '상세주소'
+  from product p, product_saleslocation ps
+ where p.productSaleslocationId = ps.id
+;
+
+
+#추가기능들 - 1
+update product
+   set isSoldout = true
+ where name = '노트북'
+   and price = 20000
+;
+
+#추가기능들 - 2
+update product
+   set isSoldout = true
+ where name = '노트북'
+    or name = '키보드'
+;
+
+#추가기능들 - 3 update와 delete에서 가급적 사용하지 않기
+SELECT *
+  from product
+ where 1=1				#주석 쉽게 다는 법 (아무거나 써놓고 조건들 and로 다 뻄)
+   and location = '구로'
+   and price = 5000
+   and isSoldout = false
+;
+
+
+
+
+** order by () desc (내림차순)
+
+** 서브쿼리
+(select max(price) from product) as maxPrice
+from (select name, price, isSoldout, aaa, qqq from myBoard ) --> 괄호 안의 절이 먼저 실행됨!

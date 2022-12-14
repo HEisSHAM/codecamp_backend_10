@@ -1,0 +1,16 @@
+{
+  "name": "12-03-typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "ts-node": "^10.9.1"
+  },
+  "script": {
+    "start:dev": "ts-node index.ts"
+  }
+}

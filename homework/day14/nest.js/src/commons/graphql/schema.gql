@@ -1,0 +1,18 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Type {
+  menu: String!
+  price: Int!
+  kcal: Int!
+  fat: Int!
+  protein: Int!
+  salt: Int!
+  sugar: Int!
+  caffeine: Int!
+}
+
+type Query {
+  fetchStarbucks: [Type!]!
+}

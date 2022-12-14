@@ -1,0 +1,50 @@
+127.0.0.1:6379> keys *
+(empty array)
+127.0.0.1:6379> set qq apple
+OK
+127.0.0.1:6379> get qqq
+(nil)
+127.0.0.1:6379> get qq
+"apple"
+127.0.0.1:6379> ttl qq
+(integer) -1
+127.0.0.1:6379> ttl qqq
+(integer) -2
+127.0.0.1:6379> ttl qq
+(integer) -1
+127.0.0.1:6379> ttl qqq
+(integer) -2
+127.0.0.1:6379> expire qqq 20
+(integer) 0
+127.0.0.1:6379> ttl qqq
+(integer) -2
+127.0.0.1:6379> ttl qqq
+(integer) -2
+127.0.0.1:6379> ttl qq
+(integer) -1
+127.0.0.1:6379> expire qq 20
+(integer) 1
+127.0.0.1:6379> ttl qq
+(integer) 14
+127.0.0.1:6379> ttl qq
+(integer) 12
+127.0.0.1:6379> ttl qq
+(integer) 11
+127.0.0.1:6379> ttl qq
+(integer) 10
+127.0.0.1:6379> get qqq
+(nil)
+127.0.0.1:6379> get qq
+"apple"
+127.0.0.1:6379> get qq
+"apple"
+127.0.0.1:6379> get qq
+"apple"
+127.0.0.1:6379> get qq
+"apple"
+127.0.0.1:6379> get qq
+"apple"
+127.0.0.1:6379> get qq
+(nil)
+127.0.0.1:6379> keys *
+(empty array)
