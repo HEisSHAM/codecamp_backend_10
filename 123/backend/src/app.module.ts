@@ -1,25 +1,29 @@
-import { Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { BoardsModule } from './apis/boards/boards.module';
+import { Board } from './apis/boards/entities/board.entity';
 import { ConfigModule } from '@nestjs/config';
-import { FoodsModule } from './apis/foods/foods.module';
-import { FoodsCategoryModule } from './apis/categories/foods.category.module';
+import { Product } from './apis/products/entities/product.entity';
+import { ProductsCategoriesModule } from './apis/productsCategories/productsCategories.module';
+import { ProductsModule } from './apis/products/products.module';
 import { UsersModule } from './apis/users/users.module';
 import { AuthModule } from './apis/auth/auth.module';
 import { JwtAccessStrategy } from './commons/auth/jwt-access.strategy';
 import { JwtRefreshStrategy } from './commons/auth/jwt-refresh.strategy';
 import { PointsTransactionsModule } from './apis/pointsTransactions/pointsTransactions.module';
-import { FilesModule } from './apis/files/files.module';
+import { FilesModule } from './apis/files/file.module';
 
 @Module({
   imports: [
     AuthModule,
     FilesModule,
+    BoardsModule,
     PointsTransactionsModule,
+    ProductsModule,
+    ProductsCategoriesModule,
     UsersModule,
-    FoodsModule,
-    FoodsCategoryModule,
     ConfigModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -36,9 +40,11 @@ import { FilesModule } from './apis/files/files.module';
       entities: [__dirname + '/apis/**/*.entity.*'],
       synchronize: true,
       logging: true,
-      // socketPath: '/tmp/mysql.sock',
     }),
   ],
-  providers: [JwtAccessStrategy, JwtRefreshStrategy],
+  providers: [
+    JwtAccessStrategy, //
+    JwtRefreshStrategy,
+  ],
 })
 export class AppModule {}
