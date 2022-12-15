@@ -16,6 +16,7 @@ services:
 
   # 컴퓨터이름
   my-database:
+    # platform: linux/86_64
     image: mysql:latest
     environment:
       MYSQL_DATABASE: 'mydocker10'
