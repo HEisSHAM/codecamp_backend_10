@@ -1,0 +1,25 @@
+steps:
+  # 1단계 => docker-compose -f docker-compose.prod.yaml build
+  - name: docker/compose:1.29.0
+    args:
+      - -f
+      - docker-compose.prod.yaml
+      - build
+
+  # 2단계 => docker-compose -f docker-compose.prod.yaml push
+  - name: docker/compose:1.29.0
+    args:
+      - -f
+      - class/deploy/witt-docker/backend/docker-compose.prod.yaml
+      - push
+
+  # 3단계 => kubectl set image deployment/main-project main-project-sha256-1=asia.gcr.io/polar-scene-370203/main-project:0.4
+  - name: gcr.io/cloud-builders/kubectl
+    args:
+      - set
+      - image
+      - deployment/main-project
+      - mybackend10-nestjs-sha256-1=asia.gcr.io/polar-scene-370203/my-backend:1.4
+    env:
+      - CLOUDSDK_COMPUTE_ZONE=asia-northeast3
+      - CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-2
